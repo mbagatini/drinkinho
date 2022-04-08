@@ -47,7 +47,7 @@ export function NavMenu() {
           </Link>
         )}
 
-        <Link href="/" passHref>
+        <Link href="/discover" passHref>
           <ChakraLink display="flex" ml="6">
             <Text ml="4">Discover</Text>
           </ChakraLink>

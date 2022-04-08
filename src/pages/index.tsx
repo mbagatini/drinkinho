@@ -13,7 +13,7 @@ export default function Home() {
   }
 
   return (
-    <VStack w="100vw" h="100vh" bg={"blue.900"}>
+    <VStack w="100vw" h="100vh">
       <Header />
 
       <VStack
