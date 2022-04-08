@@ -1,30 +1,30 @@
-import {
-  Button,
-  Flex,
-  Text,
-  Heading,
-  Box,
-  Image,
-  VStack,
-  Link,
-} from "@chakra-ui/react";
+import { Button, Text, Heading, Box, Image, VStack } from "@chakra-ui/react";
+import router from "next/router";
 
 import { Header } from "../components/header";
+import { api } from "../services/api";
 
 export default function Home() {
+  async function hadleRandomDrink() {
+    const response = await api.get("/random.php");
+    const drink = response.data.drinks[0] || null;
+
+    router.push(`/drink/${drink.idDrink}`);
+  }
+
   return (
-    <Flex direction="column" w="100vw" h="100vh" bg={"blue.900"}>
+    <VStack w="100vw" h="100vh" bg={"blue.900"}>
       <Header />
 
-      <Flex
+      <VStack
         as="main"
-        direction="column"
         w="100%"
         h="100%"
         maxW={[400, 640, 640, 860]}
         px="6"
+        pb={["10", "0"]}
         mx="auto"
-        justify="center"
+        justify={["flex-end", "center"]}
         position="relative"
       >
         <VStack spacing="6" align="flex-start" zIndex="2">
@@ -32,11 +32,17 @@ export default function Home() {
             THE WIKI FOR DRINKS. <br /> HERE YOU WILL FIND YOUR PERFECT MATCH.
           </Heading>
 
-          <Button bg="orange.500" w="200px" p="8" fontWeight="regular">
+          <Button
+            bg="orange.500"
+            w="200px"
+            p="8"
+            fontWeight="regular"
+            onClick={hadleRandomDrink}
+          >
             Show me a drink
           </Button>
 
-          <Text maxW={400}>
+          <Text maxW={300}>
             Enjoy the big veriety of drinks, alocholic and non-alocholic, check
             the receipe and share it with your friends.
           </Text>
@@ -50,7 +56,7 @@ export default function Home() {
         >
           <Image src="/images/bartender.jpg" alt="Drink" />
         </Box>
-      </Flex>
-    </Flex>
+      </VStack>
+    </VStack>
   );
 }
