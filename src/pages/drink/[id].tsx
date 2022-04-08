@@ -28,7 +28,7 @@ export default function Drink() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { isLoading, error, data } = useQuery(`drink${id}`, () =>
+  const { isLoading, error, data } = useQuery<any, Error>(`drink${id}`, () =>
     api.get(`/lookup.php?i=${id}`).then((res) => {
       return res.data.drinks[0] || null;
     })
@@ -37,30 +37,28 @@ export default function Drink() {
   const formattedData = useMemo(() => {
     if (!data) return {} as DrinkProps;
 
-    var fields = data;
-
     var drink: DrinkProps = {
-      name: fields.strDrink,
-      category: fields.strCategory,
-      alcoholic: fields.strAlcoholic,
-      instructions: fields.strInstructions,
-      thumb: fields.strDrinkThumb,
+      name: data.strDrink,
+      category: data.strCategory,
+      alcoholic: data.strAlcoholic,
+      instructions: data.strInstructions,
+      thumb: data.strDrinkThumb,
       ingredients: [
-        fields.strIngredient1,
-        fields.strIngredient2,
-        fields.strIngredient3,
-        fields.strIngredient4,
-        fields.strIngredient5,
-        fields.strIngredient6,
-        fields.strIngredient7,
-        fields.strIngredient8,
-        fields.strIngredient9,
-        fields.strIngredient10,
-        fields.strIngredient11,
-        fields.strIngredient12,
-        fields.strIngredient13,
-        fields.strIngredient14,
-        fields.strIngredient15,
+        data.strIngredient1,
+        data.strIngredient2,
+        data.strIngredient3,
+        data.strIngredient4,
+        data.strIngredient5,
+        data.strIngredient6,
+        data.strIngredient7,
+        data.strIngredient8,
+        data.strIngredient9,
+        data.strIngredient10,
+        data.strIngredient11,
+        data.strIngredient12,
+        data.strIngredient13,
+        data.strIngredient14,
+        data.strIngredient15,
       ].filter((ingredient) => (ingredient ? true : false)),
     };
 
