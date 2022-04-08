@@ -80,8 +80,8 @@ export default function Drink() {
         as="main"
         maxW={1120}
         mx="auto"
-        my={20}
-        px={16}
+        my={16}
+        px={["8", "16"]}
         direction={["column", "column", "row"]}
         spacing={[8, 8, 16, 24]}
       >

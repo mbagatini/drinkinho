@@ -1,7 +1,15 @@
-import { Flex, Text, Image, Link as ChakraLink } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Image,
+  Link as ChakraLink,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import Link from "next/link";
 
 export function NavMenu() {
+  const showHomeLink = useBreakpointValue({ base: false, md: true });
+
   return (
     <Flex
       as="header"
@@ -10,7 +18,7 @@ export function NavMenu() {
       h="20"
       mx="auto"
       mt="4"
-      px="16"
+      px={["8", "16"]}
       align="center"
       justify="space-between"
     >
@@ -18,7 +26,7 @@ export function NavMenu() {
         <Link href="/" passHref>
           <ChakraLink display="flex">
             <Image
-              boxSize="32px"
+              boxSize={["24px", "32px"]}
               objectFit="cover"
               src="/images/cocktail_sem_borda.png"
               alt="Drinkinho"
@@ -31,11 +39,13 @@ export function NavMenu() {
       </Flex>
 
       <Flex>
-        <Link href="/" passHref>
-          <ChakraLink display="flex" ml="10">
-            <Text ml="4">Home</Text>
-          </ChakraLink>
-        </Link>
+        {showHomeLink && (
+          <Link href="/" passHref>
+            <ChakraLink display="flex" ml="10">
+              <Text ml="4">Home</Text>
+            </ChakraLink>
+          </Link>
+        )}
 
         <Link href="/" passHref>
           <ChakraLink display="flex" ml="6">
