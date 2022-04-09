@@ -1,18 +1,75 @@
-import {
-  VStack,
-  Box,
-  Heading,
-  Text,
-  InputGroup,
-  Input,
-  Button,
-  Select,
-} from "@chakra-ui/react";
-import { Search2Icon } from "@chakra-ui/icons";
+import { useMemo, useRef, useState } from "react";
+import { Box, Button, Heading, Text, VStack } from "@chakra-ui/react";
+import { useInfiniteQuery } from "react-query";
 
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
+import { SearchForm } from "../components/SearchForm";
+import { CardList } from "../components/CardList";
+import { getDrinks } from "../hooks/useDrinks";
+import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
+
+type FilterProps = {
+  category: string | null;
+  ingredient: string | null;
+};
 
 export default function Discover() {
+  const [enableSearch, setEnableSearch] = useState(false);
+  const [filters, setFilters] = useState<FilterProps>({} as FilterProps);
+
+  const {
+    data,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+    remove,
+  } = useInfiniteQuery(
+    // query key
+    ["drinks", filters],
+    // request
+    ({ pageParam = 1 }) => getDrinks(pageParam, filters),
+    // get and return next page
+    {
+      enabled: enableSearch,
+      getNextPageParam: (page) =>
+        page.currentPage === page.lastPage ? null : page.currentPage + 1,
+    }
+  );
+
+  console.log(data);
+  const formattedData = useMemo(() => {
+    return data?.pages.map((item) => item.drinks).flat() ?? [];
+  }, [data]);
+
+  // INFINITE SCROLL
+  const loadMoreRef = useRef(null);
+
+  useIntersectionObserver({
+    targetRef: loadMoreRef,
+    onIntersect: fetchNextPage,
+    enableCondition: !isFetchingNextPage,
+  });
+
+  // SEARCH
+  function handleSearch(filters: FilterProps) {
+    if (!filters.category && !filters.ingredient) {
+      setEnableSearch(false);
+      remove();
+      return;
+    }
+
+    const sanitazedFilters = filters.category
+      ? { category: filters.category, ingredient: null }
+      : { category: null, ingredient: filters.ingredient };
+
+    setFilters(sanitazedFilters);
+    setEnableSearch(true);
+  }
+
   return (
     <VStack w="100vw" h="100vh">
       <Header />
@@ -23,33 +80,23 @@ export default function Discover() {
         </Heading>
 
         <Text color="blue.500">
-          We will show you the best options, we promise
+          We will show you the best options, you choose
         </Text>
 
-        <Box w="100%">
-          <InputGroup border="1px">
-            <Select placeholder="Category" w="sm" border="0" borderRadius="0">
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </Select>
+        <SearchForm handleSearch={handleSearch} />
+      </VStack>
 
-            <Text alignSelf="center" mx="4">
-              or
-            </Text>
+      <VStack as="main" maxW={[640, 768, 1280]} p={["8", "16"]}>
+        {isLoading && <Text>Loading...</Text>}
+        {isError && <Text>An error has occured: {error.message}</Text>}
 
-            <Input
-              type="text"
-              placeholder="type an ingedient"
-              border="0"
-              borderRadius="0"
-            />
+        {isSuccess && <CardList cards={formattedData} />}
 
-            <Button bg="none" border="1px" borderRadius="0">
-              <Search2Icon color="gray.300" />
-            </Button>
-          </InputGroup>
-        </Box>
+        {hasNextPage && (
+          <Box ref={loadMoreRef}>
+            {isFetchingNextPage ? "Loading more..." : ""}
+          </Box>
+        )}
       </VStack>
     </VStack>
   );

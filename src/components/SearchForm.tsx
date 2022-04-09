@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Box, Text, InputGroup, Input, Button, Select } from "@chakra-ui/react";
 import { Search2Icon } from "@chakra-ui/icons";
+import { Select as SelectCustom } from "chakra-react-select";
 
 import { useCategories } from "../hooks/useCategories";
+import { useIngredients } from "../hooks/useIngredients";
 
 type FilterProps = {
   category: string | null;
@@ -15,6 +17,12 @@ interface SearchProps {
 
 export function SearchForm({ handleSearch }: SearchProps) {
   const { data: categories } = useCategories();
+
+  const { data: ingredients } = useIngredients();
+  const optionsIngredients =
+    ingredients?.map((item) => {
+      return { value: item, label: item };
+    }) ?? [];
 
   const [category, setCategory] = useState("");
   const [ingredient, setIngredient] = useState("");
@@ -44,8 +52,15 @@ export function SearchForm({ handleSearch }: SearchProps) {
         <Text alignSelf="center" mx="4">
           or
         </Text>
+      </InputGroup>
 
-        <Input
+      <SelectCustom
+        options={optionsIngredients}
+        placeholder="Select some ingredient"
+        size="lg"
+      />
+
+      {/* <Input
           type="text"
           placeholder="type an ingedient"
           border="0"
@@ -53,21 +68,20 @@ export function SearchForm({ handleSearch }: SearchProps) {
           value={ingredient}
           onChange={(e) => setIngredient(e.target.value)}
           onKeyDown={() => setCategory("")}
-        />
+        /> */}
 
-        <Button
-          type="submit"
-          bg="none"
-          border="0"
-          borderRadius="0"
-          onClick={(e) => {
-            e.preventDefault();
-            handleSearch({ category, ingredient });
-          }}
-        >
-          <Search2Icon color="gray.300" />
-        </Button>
-      </InputGroup>
+      <Button
+        type="submit"
+        bg="none"
+        border="0"
+        borderRadius="0"
+        onClick={(e) => {
+          e.preventDefault();
+          handleSearch({ category, ingredient });
+        }}
+      >
+        <Search2Icon color="gray.300" />
+      </Button>
     </Box>
   );
 }
