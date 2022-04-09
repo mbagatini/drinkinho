@@ -1,7 +1,7 @@
 import { Button, Text, Heading, Box, Image, VStack } from "@chakra-ui/react";
 import router from "next/router";
 
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
 import { api } from "../services/api";
 
 export default function Home() {

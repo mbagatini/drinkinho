@@ -11,8 +11,8 @@ import {
 import { useQuery } from "react-query";
 import { useRouter } from "next/router";
 
-import { Header } from "../../components/header";
-import { Loader } from "../../components/loader";
+import { Header } from "../../components/Header";
+import { Loader } from "../../components/Loader";
 import { api } from "../../services/api";
 
 interface DrinkProps {
