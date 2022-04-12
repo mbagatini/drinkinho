@@ -36,9 +36,14 @@ export async function getDrinks(
 
   // divide the drinks into pages
   const initPage = page - 1;
-  const drinksPerPage = drinks.slice(initPage * 10, initPage * 10 + 10);
-  const lastPage = Math.ceil(drinks.length / 10);
+  const perPage = 5;
+  const drinksPerPage = drinks.slice(
+    initPage * perPage,
+    initPage * perPage + perPage
+  );
+  const lastPage = Math.ceil(drinks.length / perPage);
 
   const response = { drinks: drinksPerPage, currentPage: page, lastPage };
+
   return response;
 }

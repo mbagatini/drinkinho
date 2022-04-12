@@ -6,7 +6,7 @@ async function getIngredients(): Promise<string[]> {
   const { data } = await api.get("list.php?i=list");
 
   const ingredients = data.drinks
-    .map((category: { strCategory: string }) => category.strCategory)
+    .map((ingredient: { strIngredient1: string }) => ingredient.strIngredient1)
     .sort();
 
   return ingredients;
