@@ -74,7 +74,14 @@ export default function Discover() {
     <VStack w="100vw" h="100vh">
       <Header />
 
-      <VStack as="main" maxW={640} pt={["8", "16"]} align="center" spacing="8">
+      <VStack
+        as="main"
+        maxW={[640, 640, 860]}
+        mx="auto"
+        p={["8", "16"]}
+        align="center"
+        spacing="8"
+      >
         <Heading textAlign="center">
           SEARCH SOME DRINK BY CATEGORY OR INGREDIENT
         </Heading>

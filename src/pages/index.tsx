@@ -20,10 +20,10 @@ export default function Home() {
         as="main"
         w="100%"
         h="100%"
-        maxW={[400, 640, 640, 860]}
-        px="6"
-        pb={["10", "0"]}
+        maxW={[640, 640, 860]}
+        px={["8", "16"]}
         mx="auto"
+        pb={["10", "0"]}
         justify={["flex-end", "center"]}
         position="relative"
       >
