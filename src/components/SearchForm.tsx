@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Search2Icon } from "@chakra-ui/icons";
-import { Button, Flex, Select, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Select,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { OptionBase, Select as ChakraReactSelect } from "chakra-react-select";
 
 import { useCategories } from "../hooks/useCategories";
@@ -40,11 +46,18 @@ export function SearchForm({ handleSearch }: SearchProps) {
     setIngredient(item ? item.value : "");
   }
 
+  const showTextButton = useBreakpointValue({ base: true, md: false });
+
   return (
-    <Flex as="form" w="100%" border="1px solid white" align="center">
+    <Flex
+      as="form"
+      maxW="100%"
+      direction={["column", "row"]}
+      border="1px solid white"
+      align="center"
+    >
       <Select
         placeholder="Category"
-        w="sm"
         border="0"
         borderRadius="0"
         value={category}
@@ -61,7 +74,7 @@ export function SearchForm({ handleSearch }: SearchProps) {
           ))}
       </Select>
 
-      <Text alignSelf="center" mx="4">
+      <Text alignSelf={["flex-start", "center"]} mx="4" color="blue.500">
         or
       </Text>
 
@@ -79,15 +92,19 @@ export function SearchForm({ handleSearch }: SearchProps) {
 
       <Button
         type="submit"
-        bg="none"
-        border="0"
+        w={["100%", "auto"]}
+        mt={["4", "0"]}
+        bg="gray.700"
+        border="none"
+        borderTop={["1px solid white", "0"]}
         borderRadius="0"
         onClick={(e) => {
           e.preventDefault();
           handleSearch({ category, ingredient });
         }}
       >
-        <Search2Icon color="gray.300" />
+        {showTextButton && <Text fontWeight="500">search</Text>}
+        <Search2Icon color="gray.300" ml={showTextButton ? "2" : "0"} />
       </Button>
     </Flex>
   );

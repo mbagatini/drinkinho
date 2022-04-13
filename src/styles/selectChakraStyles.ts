@@ -1,10 +1,18 @@
 import { ChakraStylesConfig } from "chakra-react-select";
 
 export const chakraStyles: ChakraStylesConfig = {
+  input: (provided) => ({
+    ...provided,
+    minW: "160px",
+  }),
   control: (provided) => ({
     ...provided,
     borderRadius: 0,
     borderColor: "transparent",
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    color: "white.100",
   }),
   indicatorSeparator: (provided) => ({
     ...provided,
@@ -12,7 +20,6 @@ export const chakraStyles: ChakraStylesConfig = {
   }),
   inputContainer: (provided) => ({
     ...provided,
-    w: "200px",
   }),
   dropdownIndicator: (provided) => ({
     ...provided,
