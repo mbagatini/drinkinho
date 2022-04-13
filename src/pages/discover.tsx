@@ -40,7 +40,7 @@ export default function Discover() {
     }
   );
 
-  console.log(data);
+  //   console.warn(data);
   const formattedData = useMemo(() => {
     return data?.pages.map((item) => item.drinks).flat() ?? [];
   }, [data]);
@@ -67,7 +67,7 @@ export default function Discover() {
       : { category: null, ingredient: filters.ingredient };
 
     setFilters(sanitazedFilters);
-    setEnableSearch(true);
+    if (!enableSearch) setEnableSearch(true);
   }
 
   return (
@@ -86,16 +86,17 @@ export default function Discover() {
           SEARCH SOME DRINK BY CATEGORY OR INGREDIENT
         </Heading>
 
-        <Text color="blue.500">
-          We will show you the best options, you choose
+        <Text w="70%" color="blue.500" textAlign="center">
+          We show you the best options, you choose
         </Text>
 
         <SearchForm handleSearch={handleSearch} />
       </VStack>
 
-      <VStack as="main" maxW={[640, 768, 1280]} p={["8", "16"]}>
+      <VStack as="main" maxW={[390, 640, 768, 1280]} p={["8", "16"]}>
         {isLoading && <Text>Loading...</Text>}
-        {isError && <Text>An error has occured: {error.message}</Text>}
+
+        {isError && <Text>Sorry, An error has occured</Text>}
 
         {isSuccess && <CardList cards={formattedData} />}
 
