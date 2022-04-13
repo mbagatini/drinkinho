@@ -1,18 +1,18 @@
-import { useEffect, useMemo } from "react";
 import {
   Box,
-  Stack,
-  Image,
   Heading,
+  Image,
+  ListItem,
+  Skeleton,
+  SkeletonText,
+  Stack,
   Text,
   UnorderedList,
-  ListItem,
 } from "@chakra-ui/react";
-import { useQuery } from "react-query";
 import { useRouter } from "next/router";
-
+import { useMemo } from "react";
+import { useQuery } from "react-query";
 import { Header } from "../../components/Header";
-import { Loader } from "../../components/Loader";
 import { api } from "../../services/api";
 
 interface DrinkProps {
@@ -67,8 +67,6 @@ export default function Drink() {
 
   const drink = formattedData;
 
-  if (isLoading) return <Loader />;
-
   if (error) return "Sorry, an error has occurred: " + error.message;
 
   return (
@@ -84,33 +82,46 @@ export default function Drink() {
         spacing={[8, 8, 16, 24]}
       >
         <Box maxW={["100%", "100%", "50%"]}>
-          <Image src={drink.thumb} alt={drink.name} borderRadius="md" />
+          <Skeleton isLoaded={!isLoading}>
+            <Image
+              src={drink.thumb}
+              alt={drink.name}
+              borderRadius="md"
+              boxShadow="18px 16px 18px -12px #ffffff8e"
+            />
+          </Skeleton>
         </Box>
 
         <Box maxW={["100%", "100%", "40%"]}>
-          <Heading color="orange.500" mb="4">
-            {drink.name}
-          </Heading>
+          {isLoading ? (
+            <SkeletonText noOfLines={6} />
+          ) : (
+            <>
+              <Heading color="orange.500" mb="4">
+                {drink.name}
+              </Heading>
 
-          <Text color="blue.500" fontSize="sm" letterSpacing="wide">
-            {drink.category}
-            <br />
-            {drink.alcoholic}
-          </Text>
+              <Text color="blue.500" fontSize="sm" letterSpacing="wide">
+                {drink.category}
+                <br />
+                {drink.alcoholic}
+              </Text>
 
-          <Text fontWeight="bold" fontSize="xl" mt="8" mb="4">
-            Ingredients
-          </Text>
-          <UnorderedList>
-            {drink.ingredients.map((ingredient) => (
-              <ListItem key={ingredient}>{ingredient}</ListItem>
-            ))}
-          </UnorderedList>
+              <Text fontWeight="bold" fontSize="xl" mt="8" mb="4">
+                Ingredients
+              </Text>
+              <UnorderedList>
+                {drink?.ingredients.map((ingredient) => (
+                  <ListItem key={ingredient}>{ingredient}</ListItem>
+                ))}
+              </UnorderedList>
 
-          <Text fontWeight="bold" fontSize="xl" mt="8" mb="4">
-            Instructions
-          </Text>
-          <Text>{drink.instructions}</Text>
+              <Text fontWeight="bold" fontSize="xl" mt="8" mb="4">
+                Instructions
+              </Text>
+              <Text>{drink.instructions}</Text>
+            </>
+          )}
         </Box>
       </Stack>
     </>

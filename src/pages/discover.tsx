@@ -101,9 +101,9 @@ export default function Discover() {
         {isSuccess && <CardList cards={formattedData} />}
 
         {hasNextPage && (
-          <Box ref={loadMoreRef}>
+          <Text ref={loadMoreRef} p="8" color="orange.500">
             {isFetchingNextPage ? "Loading more..." : ""}
-          </Box>
+          </Text>
         )}
       </VStack>
     </VStack>
