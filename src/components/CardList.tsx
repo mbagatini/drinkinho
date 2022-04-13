@@ -22,7 +22,7 @@ export function CardList({ cards }: CardListProps) {
   }
 
   return (
-    <SimpleGrid columns={[1, 2, 3]} spacing="8">
+    <SimpleGrid columns={[1, 2, 2, 3]} spacing={["8", "12"]}>
       {cards?.map((card) => {
         return <Card key={card.id} data={card} />;
       })}
