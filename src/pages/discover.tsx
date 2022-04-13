@@ -1,10 +1,9 @@
+import { Button, Collapse, Heading, Text, VStack } from "@chakra-ui/react";
 import { useMemo, useRef, useState } from "react";
-import { Box, Button, Heading, Text, VStack } from "@chakra-ui/react";
 import { useInfiniteQuery } from "react-query";
-
+import { CardList } from "../components/CardList";
 import { Header } from "../components/Header";
 import { SearchForm } from "../components/SearchForm";
-import { CardList } from "../components/CardList";
 import { getDrinks } from "../hooks/useDrinks";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 
@@ -15,6 +14,7 @@ type FilterProps = {
 
 export default function Discover() {
   const [enableSearch, setEnableSearch] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
   const [filters, setFilters] = useState<FilterProps>({} as FilterProps);
 
   const {
@@ -22,7 +22,6 @@ export default function Discover() {
     isLoading,
     isSuccess,
     isError,
-    error,
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
@@ -66,6 +65,7 @@ export default function Discover() {
       ? { category: filters.category, ingredient: null }
       : { category: null, ingredient: filters.ingredient };
 
+    setShowFilters(false);
     setFilters(sanitazedFilters);
     if (!enableSearch) setEnableSearch(true);
   }
@@ -74,37 +74,45 @@ export default function Discover() {
     <VStack w="100vw" h="100vh">
       <Header />
 
-      <VStack
-        as="main"
-        maxW={[640, 640, 860]}
-        mx="auto"
-        p={["8", "16"]}
-        align="center"
-        spacing="8"
-      >
-        <Heading textAlign="center">
+      <VStack as="main" maxW={[390, 640, 768, 1280]} mx="auto" p={["8", "16"]}>
+        <Heading maxW={640} mb="8" textAlign="center">
           SEARCH SOME DRINK BY CATEGORY OR INGREDIENT
         </Heading>
+        <Collapse startingHeight="0" in={showFilters}>
+          <VStack maxW={640} mx="auto" align="center" spacing="8">
+            <Text w="70%" color="blue.500" textAlign="center">
+              We show you the best options, you choose
+            </Text>
 
-        <Text w="70%" color="blue.500" textAlign="center">
-          We show you the best options, you choose
-        </Text>
+            <SearchForm handleSearch={handleSearch} />
+          </VStack>
+        </Collapse>
 
-        <SearchForm handleSearch={handleSearch} />
-      </VStack>
-
-      <VStack as="main" maxW={[390, 640, 768, 1280]} p={["8", "16"]}>
-        {isLoading && <Text>Loading...</Text>}
-
-        {isError && <Text>Sorry, An error has occured</Text>}
-
-        {isSuccess && <CardList cards={formattedData} />}
-
-        {hasNextPage && (
-          <Text ref={loadMoreRef} p="8" color="orange.500">
-            {isFetchingNextPage ? "Loading more..." : ""}
-          </Text>
+        {!showFilters && (
+          <Button
+            size="sm"
+            borderRadius="sm"
+            mt="6"
+            bg="orange.500"
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            Show filtrers
+          </Button>
         )}
+
+        <VStack maxW={[390, 640, 768, 1280]} pt="24">
+          {isLoading && <Text>Loading...</Text>}
+
+          {isError && <Text>Sorry, An error has occured</Text>}
+
+          {isSuccess && <CardList cards={formattedData} />}
+
+          {hasNextPage && (
+            <Text ref={loadMoreRef} p="8" color="orange.500">
+              {isFetchingNextPage ? "Loading more..." : ""}
+            </Text>
+          )}
+        </VStack>
       </VStack>
     </VStack>
   );

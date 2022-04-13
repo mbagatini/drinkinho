@@ -32,13 +32,7 @@ export default function Home() {
             THE WIKI FOR DRINKS. <br /> HERE YOU WILL FIND YOUR PERFECT MATCH.
           </Heading>
 
-          <Button
-            bg="orange.500"
-            w="200px"
-            p="8"
-            fontWeight="regular"
-            onClick={hadleRandomDrink}
-          >
+          <Button bg="orange.500" w="200px" p="8" onClick={hadleRandomDrink}>
             Show me a drink
           </Button>
 
