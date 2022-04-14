@@ -1,21 +1,19 @@
 import { Button, Collapse, Heading, Text, VStack } from "@chakra-ui/react";
 import { useMemo, useRef, useState } from "react";
 import { useInfiniteQuery } from "react-query";
+
 import { CardList } from "../components/CardList";
 import { Header } from "../components/Header";
 import { SearchForm } from "../components/SearchForm";
 import { getDrinks } from "../hooks/useDrinks";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
-
-type FilterProps = {
-  category: string | null;
-  ingredient: string | null;
-};
+import { useFilters } from "../hooks/useFilters";
 
 export default function Discover() {
   const [enableSearch, setEnableSearch] = useState(false);
   const [showFilters, setShowFilters] = useState(true);
-  const [filters, setFilters] = useState<FilterProps>({} as FilterProps);
+
+  const { filters, setFilters, clearFilters } = useFilters();
 
   const {
     data,
@@ -39,9 +37,12 @@ export default function Discover() {
     }
   );
 
-  //   console.warn(data);
   const formattedData = useMemo(() => {
-    return data?.pages.map((item) => item.drinks).flat() ?? [];
+    if (!data?.pages[0].drinks) {
+      return [];
+    }
+
+    return data?.pages.map((item) => item.drinks).flat();
   }, [data]);
 
   // INFINITE SCROLL
@@ -54,9 +55,10 @@ export default function Discover() {
   });
 
   // SEARCH
-  function handleSearch(filters: FilterProps) {
+  function handleSearch() {
     if (!filters.category && !filters.ingredient) {
       setEnableSearch(false);
+      clearFilters();
       remove();
       return;
     }

@@ -21,6 +21,8 @@ export async function getDrinks(
   page: number = 1,
   { category, ingredient }: Filters
 ): Promise<Drinks> {
+  if (!category && !ingredient) return {} as Drinks;
+
   const url = "/filter.php?" + (category ? `c=${category}` : `i=${ingredient}`);
   //   console.log("URL: ", url);
 
