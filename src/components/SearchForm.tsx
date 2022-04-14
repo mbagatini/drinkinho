@@ -7,11 +7,11 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { OptionBase, Select as ChakraReactSelect } from "chakra-react-select";
+import { OptionBase } from "chakra-react-select";
 
+import { CustomSelect } from "./CustomSelect";
 import { useCategories } from "../hooks/useCategories";
 import { useIngredients } from "../hooks/useIngredients";
-import { chakraStyles } from "../styles/selectChakraStyles";
 
 type FilterProps = {
   category: string | null;
@@ -78,9 +78,8 @@ export function SearchForm({ handleSearch }: SearchProps) {
         or
       </Text>
 
-      <ChakraReactSelect
+      <CustomSelect
         placeholder="Select an ingredient"
-        chakraStyles={chakraStyles}
         options={optionsIngredients}
         value={ingredientSelect}
         onChange={(option) => {
