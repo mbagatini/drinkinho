@@ -73,7 +73,7 @@ export default function Discover() {
   }
 
   return (
-    <VStack w="100vw" h="100vh">
+    <VStack>
       <Header />
 
       <VStack as="main" maxW={[390, 640, 768, 1280]} mx="auto" p={["8", "16"]}>
