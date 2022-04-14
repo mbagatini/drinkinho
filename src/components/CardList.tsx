@@ -16,7 +16,9 @@ export function CardList({ cards }: CardListProps) {
   if (!cards.length) {
     return (
       <Box>
-        <Heading size="lg">No results</Heading>
+        <Heading size="md" color="orange.500">
+          No drinks were found
+        </Heading>
       </Box>
     );
   }
