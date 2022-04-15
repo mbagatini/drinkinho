@@ -1,34 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![image](https://user-images.githubusercontent.com/17517028/163500471-6dd895da-a36f-40d6-a363-628f4e8bc905.png)
 
-## Getting Started
+<h3 align="center">
+  Drinkinho.co
+</h3>
 
-First, run the development server:
+<p align="center">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361">
+</p>
+
+## 💻 About the project
+
+This is an application build to explore one thing: DRINKS!
+
+It includes alcolohic and non-alcoholic, from shots to shakes. 
+
+
+## Technologies
+
+<p>
+  <img src="https://www.prisma.io/images/ts.svg" height="100px" />
+  <img src="https://user-images.githubusercontent.com/17517028/163501841-28f4b1c3-4c72-4ab5-81b2-8c280fb262a5.png" height="100px" />
+  <img src="https://react-query.tanstack.com/_next/static/images/react-query-og-bc3e2663a884437e074dc018c8f4e59f.png" height="100px" />
+  <img src="https://chakra-ui.com/twitter-og-image.png" height="100px" />
+</p>
+
+## 🔗 API 
+
+The data consumed by this project is provided by the free API: TheCocktailDB. 
+
+For more datails access https://www.thecocktaildb.com/api.php
+
+## ⚙️ How to run it
+
+If you want to run it locally, after cloning the repository in your PC, run:
 
 ```bash
-npm run dev
-# or
+yarn install
+```
+
+And to start the application:
+
+```bash
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎨 Preview
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Take a look at the app.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+https://user-images.githubusercontent.com/17517028/163501418-1bf5bc95-52a4-4454-9809-ef8bdab4927a.mp4
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🌐 Online application
 
-## Deploy on Vercel
+Fell free to explore it and discover new drinks!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+https://drinkinho.vercel.app/
