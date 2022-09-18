@@ -17,12 +17,11 @@ It includes alcolohic and non-alcoholic, from shots to shakes.
 
 ## Technologies
 
-<p>
-  <img src="https://www.prisma.io/images/ts.svg" height="100px" />
-  <img src="https://user-images.githubusercontent.com/17517028/163501841-28f4b1c3-4c72-4ab5-81b2-8c280fb262a5.png" height="100px" />
-  <img src="https://react-query.tanstack.com/_next/static/images/react-query-og-bc3e2663a884437e074dc018c8f4e59f.png" height="100px" />
-  <img src="https://chakra-ui.com/twitter-og-image.png" height="100px" />
-</p>
+ - React
+ - Typescript
+ - NextJS
+ - ChakraUI
+ - React Query (now rebranded to TanStack Query)
 
 ## 🔗 API 
 
